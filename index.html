@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes on Champagne — An Education</title>
+<meta name="description" content="What makes Champagne truly one of a kind — the place, the law, the grapes and the method. A short education from your champagne rep.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --noir:#0A0A0B;--noir-2:#0F0F11;--panel:#111113;
+    --cream:#EEE6D4;--cream-dim:#B6AC96;--muted:#6C685C;
+    --gold:#C6A052;--gold-2:#DCC384;--gold-deep:#8C6F31;
+    --line:rgba(198,160,82,.26);
+    --serif:"Cormorant Garamond",Georgia,serif;
+    --sans:"Jost",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:var(--serif);color:var(--cream);background:var(--noir);line-height:1.5;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--gold);color:var(--noir)}
+  a{color:inherit;text-decoration:none}
+
+  #bg-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 80% at 50% 30%,transparent 40%,rgba(0,0,0,.55) 100%)}
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .content{position:relative;z-index:2}
+
+  .wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 clamp(24px,6vw,60px)}
+  .label{font-family:var(--serif);font-style:italic;font-weight:500;font-size:.92rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gold)}
+  .rule{width:52px;height:1px;background:var(--gold);opacity:.7;margin:18px auto}
+  .lede{font-style:italic;color:var(--cream-dim);font-size:clamp(1.05rem,2vw,1.35rem);line-height:1.5;max-width:24ch}
+  .reveal{opacity:0;transform:translateY(26px)}
+  .gold{color:var(--gold-2)}
+  .serif-xl{font-family:var(--serif);font-weight:600;line-height:1.0;letter-spacing:-.005em}
+
+  /* monogram */
+  .mono{display:inline-flex;flex-direction:column;align-items:center;gap:6px;color:var(--gold)}
+  .mono .spark{width:26px;height:26px}
+  .mono .mm{font-family:var(--serif);font-weight:600;font-size:1.5rem;letter-spacing:-.14em;
+    background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .mono--lg .spark{width:40px;height:40px}.mono--lg .mm{font-size:2.6rem}
+
+  /* NAV */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:30;padding:20px 0;transition:padding .4s,background .4s,border-color .4s}
+  .nav.scrolled{padding:12px 0;background:rgba(10,10,11,.7);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav__in{display:flex;align-items:center;justify-content:space-between}
+  .nav .mono{flex-direction:row;gap:9px}.nav .mono .spark{width:20px;height:20px}.nav .mono .mm{font-size:1.15rem}
+  .nav__links{display:flex;align-items:center;gap:30px}
+  .nav__links a{font-family:var(--sans);font-weight:400;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-dim);transition:color .25s}
+  .nav__links a:hover{color:var(--gold-2)}
+  .nav__cta{border:1px solid var(--line);border-radius:2px;padding:9px 18px;color:var(--gold-2) !important}
+  .nav__cta:hover{background:var(--gold);border-color:var(--gold);color:var(--noir) !important}
+  @media(max-width:760px){.nav__links a:not(.nav__cta){display:none}}
+
+  /* HERO */
+  .hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;padding:120px 22px 80px}
+  .hero .mono{margin-bottom:40px}
+  .hero h1{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(2.1rem,5.6vw,4.2rem);line-height:1.14;letter-spacing:.002em;max-width:16ch;text-wrap:balance}
+  .hero h1 .gold{font-weight:600}
+  .scrollcue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;font-family:var(--sans);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+  .scrollcue i{width:1px;height:44px;background:linear-gradient(var(--gold),transparent);transform-origin:top;animation:cue 2.6s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleY(.3);opacity:.4}50%{transform:scaleY(1);opacity:1}}
+  @media(prefers-reduced-motion:reduce){.scrollcue i{animation:none}}
+
+  /* generic band */
+  .band{padding:clamp(90px,15vw,180px) 0;text-align:center}
+  .band--tall{padding:clamp(120px,22vw,260px) 0}
+
+  /* DISTINCTION */
+  .distinction p{font-family:var(--serif);font-weight:500;font-size:clamp(1.8rem,4.6vw,3.4rem);line-height:1.12;letter-spacing:-.005em;max-width:18ch;margin:0 auto}
+  .distinction .two{margin-top:.5em}
+
+  /* NAME */
+  .name .serif-xl{font-style:italic;font-size:clamp(3.4rem,13vw,9rem);margin:22px 0 8px}
+  .name .mono{margin:34px 0 26px}
+
+  /* FRAMED (AOC) */
+  .framed{position:relative;padding:clamp(60px,10vw,120px) clamp(24px,6vw,60px);max-width:900px;margin:0 auto;text-align:center}
+  .framed .frame{position:absolute;inset:0;border:1px solid var(--line);pointer-events:none}
+  .framed__num{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:1.1rem;letter-spacing:.1em}
+  .framed .rule{margin:14px auto 30px}
+  .framed h2{font-family:var(--serif);font-style:italic;color:var(--gold);font-weight:500;font-size:clamp(1.1rem,2.6vw,1.5rem);letter-spacing:.06em;margin-bottom:24px}
+  .framed p{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(1.7rem,4.6vw,3rem);line-height:1.18;max-width:16ch;margin:0 auto}
+
+  /* NUMBERS */
+  .stats__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,7vw,90px);max-width:820px;margin:0 auto}
+  .stat b{display:block;font-family:var(--serif);font-weight:600;font-size:clamp(3.4rem,11vw,7rem);line-height:1;color:var(--gold-2);letter-spacing:-.01em}
+  .stat span{font-family:var(--serif);font-style:italic;color:var(--cream-dim);font-size:clamp(1rem,1.8vw,1.2rem);display:block;margin-top:14px;max-width:20ch;margin-inline:auto}
+  @media(max-width:640px){.stats__grid{grid-template-columns:1fr;gap:56px}}
+
+  /* GRID SECTIONS (grapes / styles) */
+  .sec-head{margin-bottom:60px}
+  .sec-head .rule{margin:16px auto 0}
+  .sec-head h2{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,5.2vw,3.4rem);letter-spacing:-.01em;line-height:1.04;margin-top:14px}
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .cell{background:var(--noir);padding:44px 30px 50px;text-align:center;transition:background .5s}
+  .cell:hover{background:var(--noir-2)}
+  .cell .k{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:1rem;letter-spacing:.06em}
+  .cell h3{font-family:var(--serif);font-weight:600;font-size:1.7rem;margin:16px 0 12px;letter-spacing:-.005em}
+  .cell p{color:var(--cream-dim);font-size:1.02rem;font-style:italic;max-width:22ch;margin:0 auto}
+  @media(max-width:760px){.trio{grid-template-columns:1fr}}
+
+  /* METHOD (steps) */
+  .steps{max-width:640px;margin:0 auto;text-align:left}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:26px;padding:26px 0;border-top:1px solid var(--line)}
+  .step:last-child{border-bottom:1px solid var(--line)}
+  .step .n{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:1.3rem;padding-top:4px}
+  .step h3{font-family:var(--serif);font-weight:600;font-size:1.5rem;letter-spacing:-.005em}
+  .step p{color:var(--cream-dim);font-style:italic;font-size:1.02rem;margin-top:4px}
+
+  /* STYLES list */
+  .styles{max-width:760px;margin:0 auto;text-align:left}
+  .srow{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:24px 0;border-top:1px solid var(--line)}
+  .styles .srow:last-child{border-bottom:1px solid var(--line)}
+  .srow h3{font-family:var(--serif);font-weight:600;font-size:clamp(1.4rem,3.4vw,2rem);letter-spacing:-.005em;white-space:nowrap}
+  .srow p{color:var(--cream-dim);font-style:italic;font-size:1.02rem;text-align:right}
+  @media(max-width:600px){.srow{flex-direction:column;gap:6px}.srow p{text-align:left}}
+
+  /* CLOSING */
+  .closing .serif-xl{font-style:italic;font-size:clamp(2.2rem,6vw,4.2rem);max-width:16ch;margin:0 auto 40px;line-height:1.08}
+  .closing__glow{position:absolute;left:50%;top:8%;width:70vw;height:70vw;max-width:820px;max-height:820px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,rgba(198,160,82,.12),transparent 60%);pointer-events:none}
+  .btn{display:inline-block;font-family:var(--sans);font-weight:400;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--noir);background:var(--gold);padding:16px 34px;border-radius:2px;border:1px solid var(--gold);transition:transform .3s,background .3s,color .3s}
+  .btn:hover{transform:translateY(-2px);background:transparent;color:var(--gold-2)}
+  .closing__sig{margin-top:40px;font-style:italic;color:var(--cream-dim);font-size:1.05rem}
+  .closing__sig b{color:var(--gold-2);font-weight:500;font-style:normal}
+
+  /* FOOTER */
+  .foot{border-top:1px solid var(--line);padding:56px 0 44px;text-align:center;position:relative;z-index:2}
+  .foot .mono{margin-bottom:18px}
+  .foot__tag{font-style:italic;color:var(--cream-dim);font-size:1.05rem;margin-bottom:26px}
+  .foot__legal{font-family:var(--sans);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:2}
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="vignette"></div>
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="wrap nav__in">
+    <a class="mono" href="#top" aria-label="Home">
+      <svg class="spark" viewBox="0 0 40 40" fill="currentColor"><path d="M20 3 L22 18 L37 20 L22 22 L20 37 L18 22 L3 20 L18 18 Z"/><circle cx="31" cy="9" r="1"/><circle cx="10" cy="12" r=".8"/><circle cx="30" cy="31" r=".8"/></svg>
+      <span class="mm">MM</span>
+    </a>
+    <div class="nav__links">
+      <a href="#region">The Region</a>
+      <a href="#method">The Method</a>
+      <a href="#styles">Styles</a>
+      <a href="#follow" class="nav__cta">Follow</a>
+    </div>
+  </div>
+</nav>
+
+<main class="content" id="top">
+
+  <!-- HERO -->
+  <header class="hero">
+    <span class="mono mono--lg" data-hero>
+      <svg class="spark" viewBox="0 0 40 40" fill="currentColor"><path d="M20 3 L22 18 L37 20 L22 22 L20 37 L18 22 L3 20 L18 18 Z"/><circle cx="31" cy="9" r="1.1"/><circle cx="10" cy="12" r=".9"/><circle cx="30" cy="31" r=".9"/></svg>
+      <span class="mm">MM</span>
+    </span>
+    <h1 data-hero>The world's most famous drink comes from <span class="gold">one small corner of France.</span></h1>
+    <div class="scrollcue" data-hero><span>Discover</span><i></i></div>
+  </header>
+
+  <!-- DISTINCTION -->
+  <section class="band band--tall distinction wrap">
+    <p class="reveal">Thousands of wineries make sparkling wine.</p>
+    <p class="two reveal gold">Only one place can legally make Champagne.</p>
+  </section>
+
+  <!-- NAME -->
+  <section class="band name wrap" id="region">
+    <span class="label reveal">That place is</span>
+    <div class="serif-xl reveal">Champagne.</div>
+    <span class="mono reveal">
+      <svg class="spark" viewBox="0 0 40 40" fill="currentColor"><path d="M20 3 L22 18 L37 20 L22 22 L20 37 L18 22 L3 20 L18 18 Z"/><circle cx="31" cy="9" r="1"/><circle cx="10" cy="12" r=".8"/><circle cx="30" cy="31" r=".8"/></svg>
+      <span class="mm">MM</span>
+    </span>
+    <p class="lede reveal" style="margin:0 auto">A region in north-east France — and a name the rest of the world isn't allowed to borrow.</p>
+  </section>
+
+  <!-- AOC FRAMED -->
+  <section class="band">
+    <div class="framed reveal">
+      <div class="frame"></div>
+      <div class="framed__num">04</div>
+      <div class="rule"></div>
+      <h2>Appellation d'Origine Contrôlée</h2>
+      <p>France's guarantee that a taste this specific can only belong to one place.</p>
+    </div>
+  </section>
+
+  <!-- NUMBERS -->
+  <section class="band stats wrap">
+    <div class="stats__grid">
+      <div class="stat reveal">
+        <b><span data-count="0.5" data-dec="1"></span>%</b>
+        <span>of the world's vineyard area is Champagne.</span>
+      </div>
+      <div class="stat reveal">
+        <b><span data-count="31" data-dec="0"></span>%</b>
+        <span>of the value of all sparkling wine consumed worldwide.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRAPES -->
+  <section class="band wrap">
+    <div class="sec-head reveal">
+      <span class="label">The grapes</span>
+      <h2>Three grapes, endless expression.</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="trio">
+      <div class="cell reveal"><span class="k">Chardonnay</span><h3>Elegance</h3><p>Citrus, white flowers and finesse — the backbone of finer, lighter cuvées.</p></div>
+      <div class="cell reveal"><span class="k">Pinot Noir</span><h3>Structure</h3><p>Body, depth and red-fruit power — the spine that lets Champagne age.</p></div>
+      <div class="cell reveal"><span class="k">Pinot Meunier</span><h3>Charm</h3><p>Roundness, fruit and early approachability — the softener in the blend.</p></div>
+    </div>
+  </section>
+
+  <!-- METHOD -->
+  <section class="band wrap" id="method">
+    <div class="sec-head reveal">
+      <span class="label">Méthode Champenoise</span>
+      <h2>How the bubbles are born.</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><span class="n">I</span><div><h3>Second fermentation</h3><p>A little yeast and sugar are added, and the wine ferments a second time — sealed inside the bottle, where the bubbles are trapped.</p></div></div>
+      <div class="step reveal"><span class="n">II</span><div><h3>Aging on the lees</h3><p>The wine rests on its spent yeast for years, drawing out brioche, almond and that unmistakable depth.</p></div></div>
+      <div class="step reveal"><span class="n">III</span><div><h3>Riddling</h3><p>Each bottle is gradually turned and tilted, coaxing the sediment down into the neck.</p></div></div>
+      <div class="step reveal"><span class="n">IV</span><div><h3>Disgorgement</h3><p>The neck is frozen and the plug of sediment fired out — leaving the wine perfectly clear.</p></div></div>
+      <div class="step reveal"><span class="n">V</span><div><h3>Dosage</h3><p>A final touch of wine and sugar sets the sweetness — from bone-dry Brut Nature to richer styles.</p></div></div>
+    </div>
+  </section>
+
+  <!-- STYLES -->
+  <section class="band wrap" id="styles">
+    <div class="sec-head reveal">
+      <span class="label">Know your bottle</span>
+      <h2>The styles, simply.</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="styles">
+      <div class="srow reveal"><h3>Brut</h3><p>The classic dry style — crisp, versatile, the default pour.</p></div>
+      <div class="srow reveal"><h3>Blanc de Blancs</h3><p>100% Chardonnay — pure, mineral, elegant.</p></div>
+      <div class="srow reveal"><h3>Blanc de Noirs</h3><p>From black grapes only — richer, fuller, more powerful.</p></div>
+      <div class="srow reveal"><h3>Rosé</h3><p>A touch of red wine or skin contact — red fruit and colour.</p></div>
+      <div class="srow reveal"><h3>Vintage</h3><p>A single exceptional year, aged longer — rare and age-worthy.</p></div>
+    </div>
+  </section>
+
+  <!-- CLOSING / FOLLOW -->
+  <section class="band band--tall closing wrap" id="follow" style="position:relative">
+    <div class="closing__glow"></div>
+    <div style="position:relative;z-index:2">
+      <span class="label reveal">One of a kind</span>
+      <div class="serif-xl reveal" style="margin-top:22px">There's a whole world in every glass.</div>
+      <div class="reveal"><a href="https://instagram.com/" class="btn" target="_blank" rel="noopener">Follow the journey</a></div>
+      <p class="closing__sig reveal">Your champagne rep — <b>[Your name]</b>. Questions about a bottle, a pairing, or an order? Just ask.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="wrap">
+      <span class="mono mono--lg">
+        <svg class="spark" viewBox="0 0 40 40" fill="currentColor"><path d="M20 3 L22 18 L37 20 L22 22 L20 37 L18 22 L3 20 L18 18 Z"/><circle cx="31" cy="9" r="1"/><circle cx="10" cy="12" r=".8"/><circle cx="30" cy="31" r=".8"/></svg>
+        <span class="mm">MM</span>
+      </span>
+      <p class="foot__tag">Notes on Champagne — a short education.</p>
+      <div class="foot__legal">
+        © 2026 [Your Brand] · Champagne, France<br>
+        For education &amp; enjoyment · Please drink responsibly
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const nav = document.querySelector('.nav');
+const onScrollNav = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+onScrollNav();
+
+/* THREE.JS: rising champagne bubbles */
+(function bubbles(){
+  const canvas = document.getElementById('bg-canvas'); if(!window.THREE) return;
+  const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, innerWidth/innerHeight, .1, 100); camera.position.z=26;
+
+  const cc=document.createElement('canvas'); cc.width=cc.height=64; const g=cc.getContext('2d');
+  const grd=g.createRadialGradient(32,32,0,32,32,32);
+  grd.addColorStop(0,'rgba(255,240,200,1)');
+  grd.addColorStop(.4,'rgba(220,180,110,.5)');
+  grd.addColorStop(1,'rgba(220,180,110,0)');
+  g.fillStyle=grd; g.fillRect(0,0,64,64);
+  const tex=new THREE.CanvasTexture(cc);
+
+  const N=320, geo=new THREE.BufferGeometry(), pos=new Float32Array(N*3), spd=new Float32Array(N), sway=new Float32Array(N), sz=new Float32Array(N);
+  for(let i=0;i<N;i++){
+    pos[i*3]=(Math.random()-.5)*72; pos[i*3+1]=(Math.random()-.5)*56; pos[i*3+2]=(Math.random()-.5)*30;
+    spd[i]=.01+Math.random()*.04; sway[i]=Math.random()*Math.PI*2; sz[i]=.4+Math.random()*1.1;
+  }
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('size',new THREE.BufferAttribute(sz,1));
+  const mat=new THREE.PointsMaterial({size:1.0,map:tex,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,opacity:.55,sizeAttenuation:true,color:new THREE.Color('#E4C578')});
+  scene.add(new THREE.Points(geo,mat));
+
+  let mx=0,my=0,tp=0;
+  window.addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5;},{passive:true});
+  function resize(){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);}
+  resize(); window.addEventListener('resize',resize);
+  (function tick(){
+    tp+=.01; const p=geo.attributes.position.array;
+    for(let i=0;i<N;i++){
+      p[i*3+1]+=spd[i];
+      p[i*3]+=Math.sin(tp*1.2+sway[i])*.006;
+      if(p[i*3+1]>28){ p[i*3+1]=-28; p[i*3]=(Math.random()-.5)*72; }
+    }
+    geo.attributes.position.needsUpdate=true;
+    camera.position.x+=(mx*3-camera.position.x)*.04; camera.position.y+=(-my*2-camera.position.y)*.04; camera.lookAt(0,0,0);
+    renderer.render(scene,camera); if(!REDUCED) requestAnimationFrame(tick);
+  })();
+})();
+
+/* GSAP + Lenis */
+window.addEventListener('load', ()=>{
+  gsap.registerPlugin(ScrollTrigger);
+  if(window.Lenis && !REDUCED){
+    const lenis=new Lenis({lerp:.09});
+    lenis.on('scroll',()=>{ScrollTrigger.update();onScrollNav();});
+    gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0);
+  } else { window.addEventListener('scroll',onScrollNav,{passive:true}); }
+
+  if(REDUCED){
+    gsap.utils.toArray('.reveal,[data-hero]').forEach(el=>el.style.opacity=1);
+    document.querySelectorAll('[data-count]').forEach(el=>{el.textContent=(+el.dataset.count).toFixed(+el.dataset.dec);});
+    return;
+  }
+
+  gsap.timeline({defaults:{ease:'power3.out'}})
+    .from('[data-hero]',{opacity:0,y:26,duration:1.2,stagger:.18});
+
+  gsap.utils.toArray('.reveal').forEach(el=>{
+    gsap.to(el,{opacity:1,y:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 86%'}});
+  });
+
+  gsap.utils.toArray('.framed .frame').forEach(fr=>{
+    gsap.fromTo(fr,{scale:.94,opacity:0},{scale:1,opacity:1,duration:1.2,ease:'power2.out',scrollTrigger:{trigger:fr,start:'top 80%'}});
+  });
+
+  document.querySelectorAll('[data-count]').forEach(el=>{
+    const end=+el.dataset.count, dec=+el.dataset.dec, obj={v:0};
+    gsap.to(obj,{v:end,duration:1.8,ease:'power2.out',
+      scrollTrigger:{trigger:el,start:'top 85%'},
+      onUpdate:()=>{el.textContent=obj.v.toFixed(dec);}});
+  });
+
+  ScrollTrigger.refresh();
+});
+</script>
+</body>
+</html>
