@@ -39,18 +39,16 @@
   .gold{color:var(--gold-2)}
   .serif-xl{font-family:var(--serif);font-weight:600;line-height:1.0;letter-spacing:-.005em}
 
-  /* monogram */
-  .mono{display:inline-flex;flex-direction:column;align-items:center;gap:6px;color:var(--gold)}
-  .mono .spark{width:26px;height:26px}
-  .mono .mm{font-family:var(--serif);font-weight:600;font-size:1.5rem;letter-spacing:-.14em;
-    background:linear-gradient(180deg,var(--gold-2),var(--gold-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .mono--lg .spark{width:40px;height:40px}.mono--lg .mm{font-size:2.6rem}
+  /* monogram logo — Concept A (interlock) */
+  .logo{display:inline-block;line-height:0}
+  .logo svg{height:48px;width:auto;display:block}
+  .logo--lg svg{height:94px}
 
   /* NAV */
   .nav{position:fixed;top:0;left:0;right:0;z-index:30;padding:20px 0;transition:padding .4s,background .4s,border-color .4s}
   .nav.scrolled{padding:12px 0;background:rgba(10,10,11,.7);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
   .nav__in{display:flex;align-items:center;justify-content:space-between}
-  .nav .mono{flex-direction:row;gap:9px}.nav .mono .spark{width:20px;height:20px}.nav .mono .mm{font-size:1.15rem}
+  .nav .logo svg{height:30px}
   .nav__links{display:flex;align-items:center;gap:30px}
   .nav__links a{font-family:var(--sans);font-weight:400;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-dim);transition:color .25s}
   .nav__links a:hover{color:var(--gold-2)}
@@ -60,7 +58,7 @@
 
   /* HERO */
   .hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;padding:120px 22px 80px}
-  .hero .mono{margin-bottom:40px}
+  .hero .logo{margin-bottom:40px}
   .hero h1{font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(2.1rem,5.6vw,4.2rem);line-height:1.14;letter-spacing:.002em;max-width:16ch;text-wrap:balance}
   .hero h1 .gold{font-weight:600}
   .scrollcue{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;font-family:var(--sans);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
@@ -78,7 +76,7 @@
 
   /* NAME */
   .name .serif-xl{font-style:italic;font-size:clamp(3.4rem,13vw,9rem);margin:22px 0 8px}
-  .name .mono{margin:34px 0 26px}
+  .name .logo{margin:34px 0 26px}
 
   /* FRAMED (AOC) */
   .framed{position:relative;padding:clamp(60px,10vw,120px) clamp(24px,6vw,60px);max-width:900px;margin:0 auto;text-align:center}
@@ -132,7 +130,7 @@
 
   /* FOOTER */
   .foot{border-top:1px solid var(--line);padding:56px 0 44px;text-align:center;position:relative;z-index:2}
-  .foot .mono{margin-bottom:18px}
+  .foot .logo{margin-bottom:18px}
   .foot__tag{font-style:italic;color:var(--cream-dim);font-size:1.05rem;margin-bottom:26px}
   .foot__legal{font-family:var(--sans);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);line-height:2}
 </style>
@@ -145,9 +143,8 @@
 
 <nav class="nav">
   <div class="wrap nav__in">
-    <a class="mono" href="#top" aria-label="Home">
-      <svg class="spark" viewBox="0 0 40 40" fill="currentColor"><path d="M20 3 L22 18 L37 20 L22 22 L20 37 L18 22 L3 20 L18 18 Z"/><circle cx="31" cy="9" r="1"/><circle cx="10" cy="12" r=".8"/><circle cx="30" cy="31" r=".8"/></svg>
-      <span class="mm">MM</span>
+    <a class="logo" href="#top" aria-label="MM — home">
+      <svg viewBox="40 12 120 150" role="img" aria-label="M M monogram"><g fill="none" stroke="#DCC384" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="46,152 46,60 76,116 106,60 106,152"/><polyline points="94,152 94,60 124,116 154,60 154,152" stroke="#C6A052"/></g><g fill="#DCC384"><path d="M100 20 L103 40 L123 43 L103 46 L100 66 L97 46 L77 43 L97 40 Z"/><circle cx="128" cy="26" r="1.6"/><circle cx="74" cy="30" r="1.3"/></g></svg>
     </a>
     <div class="nav__links">
       <a href="#region">The Region</a>
@@ -162,9 +159,8 @@
 
   <!-- HERO -->
   <header class="hero">
-    <span class="mono mono--lg" data-hero>
-      <svg class="spark" viewBox="0 0 40 40" fill="currentColor"><path d="M20 3 L22 18 L37 20 L22 22 L20 37 L18 22 L3 20 L18 18 Z"/><circle cx="31" cy="9" r="1.1"/><circle cx="10" cy="12" r=".9"/><circle cx="30" cy="31" r=".9"/></svg>
-      <span class="mm">MM</span>
+    <span class="logo logo--lg" data-hero>
+      <svg viewBox="40 12 120 150" role="img" aria-label="M M monogram"><g fill="none" stroke="#DCC384" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="46,152 46,60 76,116 106,60 106,152"/><polyline points="94,152 94,60 124,116 154,60 154,152" stroke="#C6A052"/></g><g fill="#DCC384"><path d="M100 20 L103 40 L123 43 L103 46 L100 66 L97 46 L77 43 L97 40 Z"/><circle cx="128" cy="26" r="1.6"/><circle cx="74" cy="30" r="1.3"/></g></svg>
     </span>
     <h1 data-hero>The world's most famous drink comes from <span class="gold">one small corner of France.</span></h1>
     <div class="scrollcue" data-hero><span>Discover</span><i></i></div>
@@ -180,9 +176,8 @@
   <section class="band name wrap" id="region">
     <span class="label reveal">That place is</span>
     <div class="serif-xl reveal">Champagne.</div>
-    <span class="mono reveal">
-      <svg class="spark" viewBox="0 0 40 40" fill="currentColor"><path d="M20 3 L22 18 L37 20 L22 22 L20 37 L18 22 L3 20 L18 18 Z"/><circle cx="31" cy="9" r="1"/><circle cx="10" cy="12" r=".8"/><circle cx="30" cy="31" r=".8"/></svg>
-      <span class="mm">MM</span>
+    <span class="logo reveal">
+      <svg viewBox="40 12 120 150" role="img" aria-label="M M monogram"><g fill="none" stroke="#DCC384" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="46,152 46,60 76,116 106,60 106,152"/><polyline points="94,152 94,60 124,116 154,60 154,152" stroke="#C6A052"/></g><g fill="#DCC384"><path d="M100 20 L103 40 L123 43 L103 46 L100 66 L97 46 L77 43 L97 40 Z"/><circle cx="128" cy="26" r="1.6"/><circle cx="74" cy="30" r="1.3"/></g></svg>
     </span>
     <p class="lede reveal" style="margin:0 auto">A region in north-east France — and a name the rest of the world isn't allowed to borrow.</p>
   </section>
@@ -272,9 +267,8 @@
   <!-- FOOTER -->
   <footer class="foot">
     <div class="wrap">
-      <span class="mono mono--lg">
-        <svg class="spark" viewBox="0 0 40 40" fill="currentColor"><path d="M20 3 L22 18 L37 20 L22 22 L20 37 L18 22 L3 20 L18 18 Z"/><circle cx="31" cy="9" r="1"/><circle cx="10" cy="12" r=".8"/><circle cx="30" cy="31" r=".8"/></svg>
-        <span class="mm">MM</span>
+      <span class="logo logo--lg">
+        <svg viewBox="40 12 120 150" role="img" aria-label="M M monogram"><g fill="none" stroke="#DCC384" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="46,152 46,60 76,116 106,60 106,152"/><polyline points="94,152 94,60 124,116 154,60 154,152" stroke="#C6A052"/></g><g fill="#DCC384"><path d="M100 20 L103 40 L123 43 L103 46 L100 66 L97 46 L77 43 L97 40 Z"/><circle cx="128" cy="26" r="1.6"/><circle cx="74" cy="30" r="1.3"/></g></svg>
       </span>
       <p class="foot__tag">Notes on Champagne — a short education.</p>
       <div class="foot__legal">
